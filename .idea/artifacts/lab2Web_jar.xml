@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="lab2Web:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/lab2Web_jar</output-path>
+    <root id="archive" name="lab2Web.jar">
+      <element id="module-output" name="lab2Web" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/fastcgi-lib.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
