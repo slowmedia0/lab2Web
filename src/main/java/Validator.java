@@ -1,5 +1,3 @@
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class Validator {
@@ -34,18 +32,15 @@ public class Validator {
             return true;
         }
         catch (NullPointerException e){
-            //Логируем сообщение
-            System.err.println(e.getMessage());
+            LoggerCustom.log(e.getMessage());
             return false;
         }
         catch (NumberFormatException e){
-            //Логируем сообщение
-            System.err.println(e.getMessage());
+            LoggerCustom.log(e.getMessage());
             return false;
         }
         catch (IllegalArgumentException e){
-            //Логируем сообщение
-            System.err.println(e.getMessage());
+            LoggerCustom.log(e.getMessage());
             return  false;
         }
     }
@@ -75,18 +70,15 @@ public class Validator {
             return true;
         }
         catch (NullPointerException e){
-            //Логируем сообщение
-            System.err.println(e.getMessage());
+            LoggerCustom.log(e.getMessage());
             return false;
         }
         catch (NumberFormatException e){
-            //Логируем сообщение
-            System.err.println(e.getMessage());
+            LoggerCustom.log(e.getMessage());
             return false;
         }
         catch (IllegalArgumentException e){
-            //Логируем сообщение
-            System.err.println(e.getMessage());
+            LoggerCustom.log(e.getMessage());
             return  false;
         }
     }
@@ -120,18 +112,15 @@ public class Validator {
             return true;
         }
         catch (NullPointerException e){
-            //Логируем сообщение
-            System.err.println(e.getMessage());
+            LoggerCustom.log(e.getMessage());
             return false;
         }
         catch (NumberFormatException e){
-            //Логируем сообщение
-            System.err.println(e.getMessage());
+            LoggerCustom.log(e.getMessage());
             return false;
         }
         catch (IllegalArgumentException e){
-            //Логируем сообщение
-            System.err.println(e.getMessage());
+            LoggerCustom.log(e.getMessage());
             return  false;
         }
     }
