@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторная работа №1</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            color: #333;
+        }
+
+        .error-message {
+    color: red;
+    font-size: 16px;
+    margin-top: 5px;
+    display: none;
+}
+
+
+        .header {
+            font-family: cursive;
+            color: #1a5276;
+            font-size: 20px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        input[type="text"], select, button {
+            padding: 6px 10px;
+            margin: 4px 2px;
+        }
+
+        form button:hover {
+            background-color: #d5f5e3;
+            cursor: pointer;
+        }
+
+        input[type="text"]:focus {
+            border: 2px solid #2980b9;
+        }
+
+        input[type="text"]::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .layout-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .layout-table > tbody > tr > td {
+            vertical-align: top;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body onload="initializeTable()">
+
+<table class="layout-table">
+    <thead>
+        <tr>
+            <td colspan="2" class="header">
+                ФИО: Кошелев Илья Олегович | Группа: P3210 | Вариант: 12660
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="width: 420px;">
+                <canvas id="canvas" width="400" height="400"></canvas>
+            </td>
+            
+            <td>
+                <form id="search" name="search" onsubmit="return false;">
+                    <p>
+                        <p>изменение X</p>
+                        <div class="error-message" id="x-error">Выберите одно число для X!</div>
+                        <p>
+                            <input type="checkbox" name="valueOfX" value="-2"/>-2
+                        </p>        
+                        <p>
+                            <input type="checkbox" name="valueOfX" value="-1.5"/>-1.5
+                        </p>  
+                        <p>
+                            <input type="checkbox" name="valueOfX" value="-1"/>-1
+                        </p>  
+                        <p>
+                            <input type="checkbox" name="valueOfX" value="-0.5"/>-0.5
+                        </p>  
+                        <p>
+                            <input type="checkbox" name="valueOfX" value="0"/>0
+                        </p>  
+                        <p>
+                            <input type="checkbox" name="valueOfX" value="0.5"/>0.5
+                        </p>  
+                        <p>
+                            <input type="checkbox" name="valueOfX" value="1"/>1
+                        </p>  
+                        <p>
+                            <input type="checkbox" name="valueOfX" value="1.5"/>1.5
+                        <p>
+                            <input type="checkbox" name="valueOfX" value="2"/>2
+                        </p>  
+                    </p>
+                    
+                    <p>
+                        <label for="Y">изменение Y</label>
+                        <input type="text" required id="Y" name="Y" placeholder="От -5 до 5"/>
+                           <div class="error-message" id="y-error">Введите число в диапазоне от -5 до 5</div>
+                    </p>
+
+                    <p>
+                        <p>изменение R</p>
+                        <div class="error-message" id="r-error">Выберите одно число для R!</div>
+                        <p>
+                            <input type="checkbox" name="valueOfR" value="1"/>1
+                        </p>        
+                        <p>
+                            <input type="checkbox" name="valueOfR" value="2"/>2
+                        </p>  
+                        <p>
+                            <input type="checkbox" name="valueOfR" value="3"/>3
+                        </p>  
+                        <p>
+                            <input type="checkbox" name="valueOfR" value="4"/>4
+                        </p>  
+                        <p>
+                            <input type="checkbox" name="valueOfR" value="5"/>5
+                        </p>  
+                    </p>
+
+                    <button type="button" name="Проверить точку" onclick="checkPoint()">Проверить точку</button>                    
+                    <button type="button" name="Очистка таблицы" onclick="clearHistory()">Очистка таблицы</button>                    
+                    <button type="button" name="Сортировать время по возврастанию" onclick="sortTableByTimeAsc()">Сортировать время по возврастанию</button>
+                    <button type="button" name="Сортировать время по убыванию" onclick="sortTableByTimeDesc()">Сортировать время по убыванию</button>
+
+                    <div class="pagination">
+                    <button type="button" id="prev">Назад</button>
+                    <span id="page-info">Страница 1 из 1</span>
+                    <input type="number" id="page-input" min="1" style="width: 50px; margin: 0 5px;">
+                    <button type="button" id="go-to-page">Перейти</button>
+                    <button type="button" id="next">Вперед</button>
+                    
+                    <div class="error-message" id="page-error" style="display: none;"></div>
+                </div>
+
+                    <table id="tableOfResults" border="1">
+                        <thead>
+                            <tr>
+                                <th>X</th>
+                                <th>Y</th>
+                                <th>R</th>
+                                <th>Результат</th>
+                                <th>Время</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script src="main.js" defer></script>
+</body>
+</html>
