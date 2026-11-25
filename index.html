@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторная работа №1</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            color: #333;
+            margin: 20px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 3px;
+            display: none;
+        }
+
+        .header {
+            font-family: cursive;
+            color: #1a5276;
+            font-size: 20px;
+            text-align: center;
+            padding: 10px;
+            background: #f4f6f7;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"], select, button {
+            padding: 6px 10px;
+            margin: 4px 2px;
+        }
+
+        form button:hover {
+            background-color: #d5f5e3;
+            cursor: pointer;
+        }
+
+        input[type="text"]:focus {
+            border: 2px solid #2980b9;
+            outline: none;
+        }
+
+        input[type="text"]::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .layout-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .layout-table > tbody > tr > td {
+            vertical-align: top;
+            padding: 10px;
+        }
+
+        .inline-inputs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin: 5px 0 10px 0;
+        }
+
+        .inline-inputs label {
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .buttons-group {
+            margin: 10px 0;
+        }
+
+        #tableOfResults {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        #tableOfResults th, #tableOfResults td {
+            padding: 6px 8px;
+            font-size: 14px;
+        }
+
+        .pagination {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body onload="initializeTable()">
+
+<table class="layout-table">
+    <thead>
+        <tr>
+            <td colspan="2" class="header">
+                ФИО: Кошелев Илья Олегович | Группа: P3210 | Вариант: 12660
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="width: 420px;">
+                <canvas id="canvas" width="400" height="400"></canvas>
+            </td>
+            
+            <td>
+                <form id="search" name="search" onsubmit="return false;">
+                    
+                    <div>
+                        <div class="section-title">Значение X:</div>
+                        <div class="error-message" id="x-error">Выберите одно число для X!</div>
+                        <div class="inline-inputs">
+                            <label><input type="checkbox" name="valueOfX" value="-2"/> -2</label>
+                            <label><input type="checkbox" name="valueOfX" value="-1.5"/> -1.5</label>
+                            <label><input type="checkbox" name="valueOfX" value="-1"/> -1</label>
+                            <label><input type="checkbox" name="valueOfX" value="-0.5"/> -0.5</label>
+                            <label><input type="checkbox" name="valueOfX" value="0"/> 0</label>
+                            <label><input type="checkbox" name="valueOfX" value="0.5"/> 0.5</label>
+                            <label><input type="checkbox" name="valueOfX" value="1"/> 1</label>
+                            <label><input type="checkbox" name="valueOfX" value="1.5"/> 1.5</label>
+                            <label><input type="checkbox" name="valueOfX" value="2"/> 2</label>
+                        </div>
+                    </div>
+                    
+                    <div style="margin: 10px 0;">
+                        <div class="section-title"><label for="Y">Значение Y:</label></div>
+                        <input type="text" required id="Y" name="Y" placeholder="От -5 до 5"/>
+                        <div class="error-message" id="y-error">Введите число в диапазоне от -5 до 5</div>
+                    </div>
+
+                    <div>
+                        <div class="section-title">Значение R:</div>
+                        <div class="error-message" id="r-error">Выберите одно число для R!</div>
+                        <div class="inline-inputs">
+                            <label><input type="checkbox" name="valueOfR" value="1"/> 1</label>
+                            <label><input type="checkbox" name="valueOfR" value="2"/> 2</label>
+                            <label><input type="checkbox" name="valueOfR" value="3"/> 3</label>
+                            <label><input type="checkbox" name="valueOfR" value="4"/> 4</label>
+                            <label><input type="checkbox" name="valueOfR" value="5"/> 5</label>
+                        </div>
+                    </div>
+
+                    <div class="buttons-group">
+                        <button type="button" onclick="checkPoint()">Проверить точку</button>                    
+                        <button type="button" onclick="clearHistory()">Очистка таблицы</button>                    
+                        <button type="button" onclick="sortTableByTimeAsc()">Сортировка по времени (возр.)</button>
+                        <button type="button" onclick="sortTableByTimeDesc()">Сортировка по времени (убыв.)</button>
+                    </div>
+
+                    <div class="pagination">
+                        <button type="button" id="prev">Назад</button>
+                        <span id="page-info">Страница 1 из 1</span>
+                        <input type="number" id="page-input" min="1" style="width: 50px;">
+                        <button type="button" id="go-to-page">Перейти</button>
+                        <button type="button" id="next">Вперед</button>
+                        <div class="error-message" id="page-error" style="display: none;"></div>
+                    </div>
+
+                    <table id="tableOfResults" border="1">
+                        <thead>
+                            <tr>
+                                <th>X</th>
+                                <th>Y</th>
+                                <th>R</th>
+                                <th>Результат</th>
+                                <th>Время</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="main.js" defer></script>
+</body>
+</html>
